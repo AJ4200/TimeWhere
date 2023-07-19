@@ -5,7 +5,7 @@ interface TimeProps {
 }
 const Time: React.FC<TimeProps> = ({ timeZone }) => {
   const [currentTime, setCurrentTime] = useState<any>(null);
-  const [isLoading, setIsLoading] = useState<boolean>(true); // Add isLoading state
+  const [isLoading, setIsLoading] = useState<boolean>(true);
   useEffect(() => {
     const fetchCurrentTime = async () => {
       try {
@@ -13,18 +13,18 @@ const Time: React.FC<TimeProps> = ({ timeZone }) => {
           `https://www.timeapi.io/api/Time/current/zone?timeZone=${timeZone}`,
         );
         setCurrentTime(response.data);
-        setIsLoading(false); // Set isLoading to false after data is fetched
+        setIsLoading(false);
       } catch (error) {
         console.error("Error fetching current time:", error);
-        setIsLoading(false); // Set isLoading to false in case of error
+        setIsLoading(false);
       }
     };
     fetchCurrentTime();
   }, [timeZone]);
   return (
     <div>
-      <h2>Current Time</h2>
-      {isLoading ? ( // Display loading state
+      <h2>{timeZone} Time</h2>
+      {isLoading ? (
         <p>Loading...</p>
       ) : (
         currentTime && (
