@@ -1,48 +1,57 @@
-import axios from "axios";
 import React, { useState, useEffect } from "react";
+import axios from "axios";
+import Time from "./Time";
+interface TimeZoneProps {
 
-interface TimeZoneProps {}
-
-const TimeZone: React.FC<TimeZoneProps> = ({}) => {
-  const [timeZoneData, setTimeZoneData] = useState([]);
-
+}
+const TimeZone: React.FC<TimeZoneProps> = ({  }) => {
+  const [timeZones, setTimeZones] = useState<string[]>([]);
+  const [timeZone, setTimeZone] = useState('')
+  const [filteredTimeZones, setFilteredTimeZones] = useState<string[]>([]);
+  const [showAllTimeZones, setShowAllTimeZones] = useState(true);
   useEffect(() => {
-    getTimezones();
+    const fetchTimeZones = async () => {
+      try {
+        const response = await axios.get(
+          "https://www.timeapi.io/api/TimeZone/AvailableTimeZones",
+        );
+        setTimeZones(response.data);
+        setFilteredTimeZones(response.data);
+      } catch (error) {
+        console.error("Error fetching time zones:", error);
+      }
+    };
+    fetchTimeZones();
   }, []);
-
-  async function getTimezones() {
-    try {
-      const res = await axios.get(
-        "https://www.timeapi.io/api/TimeZone/AvailableTimeZones",
-      );
-      setTimeZoneData(res.data);
-    } catch (error) {
-      console.error(error);
-    }
-  }
-  const handleSearch = (event: React.ChangeEvent<HTMLInputElement>) => {
-    
-    const searchValue = event.target.value.toLowerCase();
-    const filteredTimeZones = timeZoneData.filter((timeZone: string) =>
-      timeZone.toLowerCase().includes(searchValue),
+  const handleFilter = (event: React.ChangeEvent<HTMLInputElement>) => {
+    const filterValue = event.target.value.toLowerCase();
+    const filtered = timeZones.filter((timezone) =>
+      timezone.toLowerCase().includes(filterValue),
     );
-    setTimeZoneData(filteredTimeZones);
+    setFilteredTimeZones(filtered);
   };
-
-
+  const handleTimeZoneClick = (timezone: string) => {
+    setTimeZone(timezone);
+  };
   return (
-    <>
-      <input
-        title="Search TimeZone"
-        placeholder="Type timezone"
-        onChange={handleSearch}
-      ></input>
-      <ul>
-        {timeZoneData.map((timeZone: string) => (
-          <li key={timeZone}>{timeZone}</li>
-        ))}
-      </ul>
-    </>
+    <><div>
+          <input
+              type="text"
+              placeholder="Filter time zones"
+              onChange={handleFilter} />
+          <button onClick={() => setShowAllTimeZones(!showAllTimeZones)}>
+              {showAllTimeZones ? "Hide" : "Show"} all time zones
+          </button>
+          {showAllTimeZones ? (
+              <ul>
+                  {filteredTimeZones.map((timezone) => (
+                      <li key={timezone} onClick={() => handleTimeZoneClick(timezone)}>
+                          {timezone}
+                      </li>
+                  ))}
+              </ul>
+          ) : null}
+      </div><Time timeZone={timeZone}/></>
   );
 };
 export default TimeZone;
