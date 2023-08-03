@@ -5,11 +5,17 @@ interface TimeProps {
 const Time: React.FC<TimeProps> = ({ timeZone }) => {
   const [currentTime, setCurrentTime] = useState<any>(null);
   const [isLoading, setIsLoading] = useState<boolean>(true);
+  const Daysoftheweek = ["Default","Monday", "Tuesday", "Wednesday", "Thursday", "Friday", "Saturday", "Sunday"];
+
+  function dayofweek(dayNO:number) {
+    
+  }
   useEffect(() => {
     const fetchCurrentTime = async () => {
       try {
         const response = await fetch(
-          `http://worldtimeapi.org/api/timezone/${timeZone}`);
+          `http://worldtimeapi.org/api/timezone/${timeZone}`,
+        );
         const data = await response.json();
         setCurrentTime(data);
         setIsLoading(false);
@@ -21,20 +27,33 @@ const Time: React.FC<TimeProps> = ({ timeZone }) => {
     fetchCurrentTime();
   }, [timeZone]);
   return (
-    <div>
-      <h2>{timeZone} Time</h2>
+    <div className="flex w-4/5 flex-col items-center space-y-4 rounded-xl border p-4">
+     
       {isLoading ? (
         <p>Loading...</p>
       ) : (
         currentTime && (
-          <div>
-            {/* TODO: Display all time data and format properly */}
-            <p>Current time: {currentTime.datetime}</p>
-            <p>Time zone: {currentTime.timezone}</p>
-            <p>Day of week: {currentTime.day_of_week}</p>
+          <>
+            <div>
+              {/* Splitting date and time */}
+              {currentTime.datetime && (
+                <>
+                  {" "}
+                  <p>
+                    {" "}
+                    {currentTime.datetime
+                      .split("T")[1]
+                      .split(".")[0]
+                      .slice(0, -3)}
+                  </p>
+                  <p>{currentTime.datetime.split("T")[0]}</p>
+                </>
+              )}
+            </div>
+            <p>Day of week: {Daysoftheweek[currentTime.day_of_week]}</p>
             <p>Day of year: {currentTime.day_of_year}</p>
             <p>UTC offset: {currentTime.utc_offset}</p>
-          </div>
+          </>
         )
       )}
     </div>

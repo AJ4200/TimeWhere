@@ -1,11 +1,16 @@
 import TimeZone from "@/components/TimeZone";
+import classNames from "classnames";
 
 export default function Home() {
   return (
-    <main>
-      <h1>TimeWhere</h1>
-      <div>
-<TimeZone/>
+    <main
+      className={classNames(
+        "relative flex h-full w-full flex-col items-center justify-center space-y-4",
+      )}
+    >
+      <div className="flex h-full w-full flex-col items-center justify-center space-y-4">
+        <h1 className="text-9xl font-stoke sm:">Time•Where</h1>
+        <TimeZone />
       </div>
     </main>
   );

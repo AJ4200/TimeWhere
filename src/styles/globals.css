@@ -2,6 +2,8 @@
 @tailwind components;
 @tailwind utilities;
 
+@import url('https://fonts.googleapis.com/css2?family=Arvo:ital,wght@1,700&family=Slabo+13px&family=Stoke&display=swap');
+
 :root {
   --foreground-rgb: 0, 0, 0;
   --background-start-rgb: 214, 219, 220;
@@ -17,5 +19,5 @@
 }
 
 body {
-
+width: 100%;
 }
