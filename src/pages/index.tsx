@@ -7,9 +7,10 @@ export default function Home() {
       className={classNames(
         "relative flex h-full w-full flex-col items-center justify-center space-y-4",
       )}
+      
     >
       <div className="flex h-full w-full flex-col items-center justify-center space-y-4">
-        <h1 className="text-9xl font-stoke sm:">Time•Where</h1>
+        <h1 className="text-5xl font-stoke sm:">Time•Where</h1>
         <TimeZone />
       </div>
     </main>
