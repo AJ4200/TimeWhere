@@ -5,8 +5,8 @@ import classNames from "classnames";
 import { motion } from "framer-motion";
 
 const variants = {
-  open: { opacity: 1 },
-  closed: { opacity: 0 , duration: 1.5},
+  open: { opacity: 1, height: 500 },
+  closed: { opacity: 0.3, height: 40 },
 };
 
 interface TimeZoneProps {}
@@ -16,7 +16,7 @@ const TimeZone: React.FC<TimeZoneProps> = ({}) => {
   const [filteredTimeZones, setFilteredTimeZones] = useState<string[]>([]);
   const [loading, setLoading] = useState(true);
   const [selectedTimeZone, setSelectedTimeZone] = useState("");
-    const [isOpen, setIsOpen] = useState(true);
+  const [isOpen, setIsOpen] = useState(true);
 
   useEffect(() => {
     const fetchTimeZones = async () => {
@@ -44,12 +44,11 @@ const TimeZone: React.FC<TimeZoneProps> = ({}) => {
 
   const handleTimeZoneClick = (timezone: string) => {
     setSelectedTimeZone(timezone);
-
+    setIsOpen(false);
   };
-    const handlebuttonlist = () => {
-      setIsOpen(isOpen => !isOpen);
+  const handlebuttonlist = () => {
+    setIsOpen((isOpen) => !isOpen);
   };
-
 
   return (
     <>
@@ -66,20 +65,22 @@ const TimeZone: React.FC<TimeZoneProps> = ({}) => {
             placeholder="Filter time zones"
             onChange={handleFilter}
           />
-          <button
+          <motion.button
+            whileTap={{ scale: 0.6 }}
+            whileHover={{ scale: 1.1 }}
             className={classNames(
               "w-1/4 rounded-full bg-black/25 p-2 shadow-lg ",
               "transition-transform",
             )}
             onClick={handlebuttonlist}
           >
-            {isOpen ? "close" : "filter"}
-          </button>
+            {isOpen ? <p>close</p> : "filter"}
+          </motion.button>
         </div>
 
         {loading ? (
           <p>Loading...</p>
-        ) : isOpen ? (
+        ) : (
           <div
             className={classNames(
               " left-0 flex h-4/5 w-full items-center justify-center",
@@ -88,10 +89,13 @@ const TimeZone: React.FC<TimeZoneProps> = ({}) => {
             <motion.ul
               animate={isOpen ? "open" : "closed"}
               variants={variants}
+              transition={{ duration: 1.5 }}
+              whileHover={{ opacity: 0.8 }}
               className={classNames(
-                "z-10 h-1/2 w-2/3 overflow-y-scroll rounded-2xl border p-4",
+                "z-10 h-1/2 w-2/3 overflow-y-scroll rounded-2xl border p-4 pt-1",
+                "remove-scrollwheel",
               )}
-              style={{ maxHeight: "30rem" }} // Adjust the height as needed
+              style={{ maxHeight: "50%" }}
             >
               {filteredTimeZones.map((timezone) => (
                 <li
@@ -100,7 +104,7 @@ const TimeZone: React.FC<TimeZoneProps> = ({}) => {
                   className={
                     selectedTimeZone === timezone
                       ? "rounded-xl bg-gray-900/10 p-1"
-                      : "cursor-pointer transition-all hover:scale-y-125 hover:backdrop:blur-xl"
+                      : " cursor-pointer transition-all hover:scale-y-125 hover:backdrop:blur-xl"
                   }
                 >
                   {timezone}
@@ -108,7 +112,7 @@ const TimeZone: React.FC<TimeZoneProps> = ({}) => {
               ))}
             </motion.ul>
           </div>
-        ) : null}
+        )}
       </div>
       {selectedTimeZone && <Time timeZone={selectedTimeZone} />}
     </>

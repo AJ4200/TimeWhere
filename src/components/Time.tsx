@@ -1,4 +1,5 @@
 import classNames from "classnames";
+import { motion } from "framer-motion";
 import React, { useEffect, useState } from "react";
 interface TimeProps {
   timeZone: string;
@@ -6,6 +7,7 @@ interface TimeProps {
 const Time: React.FC<TimeProps> = ({ timeZone }) => {
   const [currentTime, setCurrentTime] = useState<any>(null);
   const [isLoading, setIsLoading] = useState<boolean>(true);
+
   const Daysoftheweek = [
     "Sunday",
     "Monday",
@@ -18,6 +20,7 @@ const Time: React.FC<TimeProps> = ({ timeZone }) => {
 
   useEffect(() => {
     const fetchCurrentTime = async () => {
+
       try {
         const response = await fetch(
           `http://worldtimeapi.org/api/timezone/${timeZone}`,
@@ -33,8 +36,15 @@ const Time: React.FC<TimeProps> = ({ timeZone }) => {
     fetchCurrentTime();
   }, [timeZone]);
   return (
-    <div
-      className="flex w-4/5 flex-col items-center space-y-4 rounded-xl border p-4 backdrop-blur-sm shadow-lg"
+    <motion.div
+    
+      initial={{ opacity: 0 }}
+      animate={{ opacity: 1 }}
+      transition={{ duration: 3 }}
+      className={classNames(
+        "flex w-4/5 flex-col items-center space-y-4 rounded-xl border p-4 shadow-lg backdrop-blur-sm",
+   
+      )}
     >
       {isLoading ? (
         <p>Loading...</p>
@@ -56,7 +66,7 @@ const Time: React.FC<TimeProps> = ({ timeZone }) => {
                       .split(".")[0]
                       .slice(0, -3)}
                   </p>
-                  <h2 className="text-7xl">{timeZone} Time</h2>
+                  <h2 className="text-7xl">{timeZone}</h2>
                   <h3 className="text-5xl">
                     {currentTime.datetime.split("T")[0]}
                   </h3>
@@ -72,7 +82,7 @@ const Time: React.FC<TimeProps> = ({ timeZone }) => {
           </>
         )
       )}
-    </div>
+    </motion.div>
   );
 };
 export default Time;

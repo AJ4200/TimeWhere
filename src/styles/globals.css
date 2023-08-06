@@ -2,8 +2,8 @@
 @tailwind components;
 @tailwind utilities;
 
-@import url('https://fonts.googleapis.com/css2?family=Arvo:ital,wght@1,700&family=Slabo+13px&family=Stoke&display=swap');
-@import url('https://fonts.googleapis.com/css?family=Source+Code+Pro:200');
+@import url("https://fonts.googleapis.com/css2?family=Arvo:ital,wght@1,700&family=Slabo+13px&family=Stoke&display=swap");
+@import url("https://fonts.googleapis.com/css?family=Source+Code+Pro:200");
 :root {
   --foreground-rgb: 0, 0, 0;
   --background-start-rgb: 214, 219, 220;
@@ -18,36 +18,46 @@
   }
 }
 
+body {
+  background-image: url("https://static.pexels.com/photos/414171/pexels-photo-414171.jpeg");
+  background-size: repeat;
+  -webkit-animation: slidein 70s;
+  animation: slidein 70s;
 
+  -webkit-animation-fill-mode: forwards;
+  animation-fill-mode: forwards;
 
-body  {
-    background-image: url('https://static.pexels.com/photos/414171/pexels-photo-414171.jpeg');
-  background-size:cover;
-        -webkit-animation: slidein 70s;
-        animation: slidein 70s;
+  -webkit-animation-iteration-count: infinite;
+  animation-iteration-count: infinite;
 
-        -webkit-animation-fill-mode: forwards;
-        animation-fill-mode: forwards;
-
-        -webkit-animation-iteration-count: infinite;
-        animation-iteration-count: infinite;
-
-        -webkit-animation-direction: alternate;
-        animation-direction: alternate;              
+  -webkit-animation-direction: alternate;
+  animation-direction: alternate;
 }
 
+body::-webkit-scrollbar {
+  display: none;
+}
+.remove-scrollwheel::-webkit-scrollbar {
+  display: none;
+}
 @-webkit-keyframes slidein {
-from {background-position: top; background-size:3000px; }
-to {background-position: -100px 0px;background-size:2750px;}
+  from {
+    background-position: top;
+    background-size: 3000px;
+  }
+  to {
+    background-position: -100px 0px;
+    background-size: 2750px;
+  }
 }
 
 @keyframes slidein {
-from {background-position: top;background-size:3000px; }
-to {background-position: -100px 0px;background-size:2750px;}
-
+  from {
+    background-position: top;
+    background-size: 3000px;
+  }
+  to {
+    background-position: -100px 0px;
+    background-size: 2750px;
+  }
 }
-
-
-
-
-
