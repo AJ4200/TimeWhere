@@ -55,6 +55,10 @@ export default function Home() {
           </div>
         </>
       )}
+      <footer className="fixed bottom-0 text-sm">
+        TimeWhere by
+        <a href="https://github.com/AJ4200"> AJ4200</a>
+      </footer>
     </main>
   );
 }
