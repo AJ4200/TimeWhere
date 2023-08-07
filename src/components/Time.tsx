@@ -23,7 +23,7 @@ const Time: React.FC<TimeProps> = ({ timeZone }) => {
 
       try {
         const response = await fetch(
-          `http://worldtimeapi.org/api/timezone/${timeZone}`,
+          `https://worldtimeapi.org/api/timezone/${timeZone}`,
         );
         const data = await response.json();
         setCurrentTime(data);
