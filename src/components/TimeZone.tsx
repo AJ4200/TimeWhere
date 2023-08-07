@@ -59,8 +59,13 @@ const TimeZone: React.FC<TimeZoneProps> = ({}) => {
         )}
       >
         <div className={classNames("right-4 flex w-4/5 space-x-4")}>
-          <input
-            className={classNames("w-3/4 rounded-full border p-2 shadow-md")}
+          <motion.input
+            whileHover={{ opacity: 1 }}
+            transition={{ duration: 1 }}
+            className={classNames(
+              "w-3/4 rounded-full border p-2 opacity-50 shadow-md outline-none",
+              "bg-white/10 placeholder:text-black/70",
+            )}
             type="text"
             placeholder="Filter time zones"
             onChange={handleFilter}
@@ -79,7 +84,7 @@ const TimeZone: React.FC<TimeZoneProps> = ({}) => {
         </div>
 
         {loading ? (
-          <p>Loading...</p>
+          <div className="mdloader"></div>
         ) : (
           <div
             className={classNames(

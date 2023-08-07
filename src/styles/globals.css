@@ -2,8 +2,8 @@
 @tailwind components;
 @tailwind utilities;
 
-@import url("https://fonts.googleapis.com/css2?family=Arvo:ital,wght@1,700&family=Slabo+13px&family=Stoke&display=swap");
-@import url("https://fonts.googleapis.com/css?family=Source+Code+Pro:200");
+@import url('https://fonts.googleapis.com/css2?family=Monoton&display=swap');
+
 :root {
   --foreground-rgb: 0, 0, 0;
   --background-start-rgb: 214, 219, 220;
@@ -21,8 +21,8 @@
 body {
   background-image: url("https://static.pexels.com/photos/414171/pexels-photo-414171.jpeg");
   background-size: repeat;
-  -webkit-animation: slidein 70s;
-  animation: slidein 70s;
+  -webkit-animation: slidein 50s;
+  animation: slidein 50s;
 
   -webkit-animation-fill-mode: forwards;
   animation-fill-mode: forwards;
@@ -60,4 +60,12 @@ body::-webkit-scrollbar {
     background-position: -100px 0px;
     background-size: 2750px;
   }
+}
+@media (max-width:735px) {
+  .time{
+    font-size: 6rem;
+  }
+.zonename{
+  font-size: large;
+}
 }

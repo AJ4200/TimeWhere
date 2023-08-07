@@ -30,24 +30,21 @@ const Time: React.FC<TimeProps> = ({ timeZone }) => {
         setIsLoading(false);
       } catch (error) {
         console.error("Error fetching current time:", error);
-        setIsLoading(false);
       }
     };
     fetchCurrentTime();
   }, [timeZone]);
   return (
     <motion.div
-    
       initial={{ opacity: 0 }}
       animate={{ opacity: 1 }}
       transition={{ duration: 3 }}
       className={classNames(
         "flex w-4/5 flex-col items-center space-y-4 rounded-xl border p-4 shadow-lg backdrop-blur-sm",
-   
       )}
     >
       {isLoading ? (
-        <p>Loading...</p>
+        <div className="mdloader"></div>
       ) : (
         currentTime && (
           <>
@@ -59,14 +56,14 @@ const Time: React.FC<TimeProps> = ({ timeZone }) => {
               {currentTime.datetime && (
                 <>
                   {" "}
-                  <p className={classNames("text-9xl")}>
+                  <p className={classNames("time text-9xl")}>
                     {" "}
                     {currentTime.datetime
                       .split("T")[1]
                       .split(".")[0]
                       .slice(0, -3)}
                   </p>
-                  <h2 className="text-7xl">{timeZone}</h2>
+                  <h2 className="zonename text-7xl">{timeZone}</h2>
                   <h3 className="text-5xl">
                     {currentTime.datetime.split("T")[0]}
                   </h3>
