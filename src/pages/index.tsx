@@ -12,7 +12,7 @@ export default function Home() {
   useEffect(() => {
     const timeout = setTimeout(() => {
       setSplash(false);
-    }, 11500);
+    }, 13000);
     return () => {
       clearTimeout(timeout);
     };
@@ -55,10 +55,12 @@ export default function Home() {
           </div>
         </>
       )}
-      <footer className="fixed bottom-0 text-sm">
+      <motion.footer id="footr" className="fixed bottom-0 text-sm"
+      transition={{duration:1}}>
+        
         TimeWhere by
-        <a href="https://github.com/AJ4200"> AJ4200</a>
-      </footer>
+        <a href="https://github.com/AJ4200"> AJ4200 © 2023</a>
+      </motion.footer>
     </main>
   );
 }

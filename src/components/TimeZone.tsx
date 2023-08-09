@@ -15,8 +15,11 @@ const TimeZone: React.FC<TimeZoneProps> = ({}) => {
   const [timeZones, setTimeZones] = useState<string[]>([]);
   const [filteredTimeZones, setFilteredTimeZones] = useState<string[]>([]);
   const [loading, setLoading] = useState(true);
-  const [selectedTimeZone, setSelectedTimeZone] = useState("");
-  const [isOpen, setIsOpen] = useState(true);
+  const [selectedTimeZone, setSelectedTimeZone] = useState(
+    "Africa/Johannesburg",
+  );
+  const [isOpen, setIsOpen] = useState(false);
+  const footer = document.getElementById("footr");
 
   useEffect(() => {
     const fetchTimeZones = async () => {
@@ -47,8 +50,16 @@ const TimeZone: React.FC<TimeZoneProps> = ({}) => {
     setIsOpen(false);
   };
   const handlebuttonlist = () => {
-    setIsOpen((isOpen) => !isOpen);
+    setIsOpen(!isOpen);
   };
+
+  useEffect(() => {
+    if (isOpen === true) {
+      footer?.classList.add("opacity-0");
+    } else {
+      footer?.classList.remove("opacity-0");
+    }
+  });
 
   return (
     <>
@@ -102,6 +113,7 @@ const TimeZone: React.FC<TimeZoneProps> = ({}) => {
               )}
               style={{ maxHeight: "50%" }}
             >
+              {}
               {filteredTimeZones.map((timezone) => (
                 <li
                   key={timezone}
